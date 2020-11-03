@@ -14,9 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.analytag.R;
 
+import java.util.List;
+
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
+
+    public List getHashtagCategories() {
+        return hashtagCategories;
+    }
+
+    private List hashtagCategories;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -31,5 +39,15 @@ public class DashboardFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    public List popularHashtag(){
+
+        return null;
+    }
+
+    public List hastagCategories(List hashtagCategories){
+
+        return null;
     }
 }

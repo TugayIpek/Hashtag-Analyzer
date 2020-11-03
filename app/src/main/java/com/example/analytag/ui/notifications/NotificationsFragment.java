@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.analytag.R;
 
+import java.util.List;
+
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
@@ -32,4 +34,15 @@ public class NotificationsFragment extends Fragment {
         });
         return root;
     }
+
+    public List hashtagHistory(String hashtag){
+
+        return null;
+    }
+
+    public List hashtagFavorite(String hashtag){
+
+        return null;
+    }
+
 }

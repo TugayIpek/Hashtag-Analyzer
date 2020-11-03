@@ -14,9 +14,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.analytag.R;
 
+import java.util.List;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private List hashtagData;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -31,5 +34,25 @@ public class HomeFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    public List searchHashtag(String hashtag){
+
+        return  null;
+    }
+
+    public List analyzerHashtag(List hashtagData){
+
+        return null;
+    }
+
+    public List relatedHashtag(String hashtag){
+
+        return null;
+    }
+
+
+    public List getHashtagData() {
+        return hashtagData;
     }
 }
