@@ -1,4 +1,4 @@
-package com.example.analytag.ui.dashboard;
+package com.example.analytag.ui.preset_hashtag;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,9 +16,9 @@ import com.example.analytag.R;
 
 import java.util.List;
 
-public class DashboardFragment extends Fragment {
+public class PresetFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private PresetViewModel presetViewModel;
 
     public List getHashtagCategories() {
         return hashtagCategories;
@@ -28,11 +28,11 @@ public class DashboardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        presetViewModel =
+                ViewModelProviders.of(this).get(PresetViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_preset, container, false);
+        final TextView textView = root.findViewById(R.id.text_preset);
+        presetViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

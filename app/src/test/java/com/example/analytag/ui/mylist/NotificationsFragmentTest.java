@@ -1,13 +1,13 @@
-package com.example.analytag.ui.notifications;
+package com.example.analytag.ui.mylist;
 
 import org.junit.Test;
 
 import java.util.List;
 
 
-class NotificationsFragmentTest {
+class mylistFragmentTest {
 
-    private NotificationsFragment testObj;
+    private mylistFragment testObj;
     @Test
     void hashtagHistory() {
         List test;

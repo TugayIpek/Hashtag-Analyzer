@@ -1,4 +1,4 @@
-package com.example.analytag.ui.dashboard;
+package com.example.analytag.ui.preset_hashtag;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.List;
 
 class DashboardFragmentTest {
 
-    private DashboardFragment testObj;
+    private PresetFragment testObj;
 
     @Test
     void popularHashtag() {

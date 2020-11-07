@@ -1,4 +1,4 @@
-package com.example.analytag.ui.notifications;
+package com.example.analytag.ui.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,17 +16,18 @@ import com.example.analytag.R;
 
 import java.util.List;
 
-public class NotificationsFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private SearchViewModel searchViewModel;
+    private List hashtagData;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        searchViewModel =
+                ViewModelProviders.of(this).get(SearchViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
+        final TextView textView = root.findViewById(R.id.text_search);
+        searchViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -35,14 +36,23 @@ public class NotificationsFragment extends Fragment {
         return root;
     }
 
-    public List hashtagHistory(String hashtag){
+    public List searchHashtag(String hashtag){
+
+        return  null;
+    }
+
+    public List analyzerHashtag(List hashtagData){
 
         return null;
     }
 
-    public List hashtagFavorite(String hashtag){
+    public List relatedHashtag(String hashtag){
 
         return null;
     }
 
+
+    public List getHashtagData() {
+        return hashtagData;
+    }
 }

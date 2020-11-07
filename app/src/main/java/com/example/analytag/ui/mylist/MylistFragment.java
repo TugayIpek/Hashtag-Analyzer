@@ -1,4 +1,4 @@
-package com.example.analytag.ui.home;
+package com.example.analytag.ui.mylist;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,18 +16,17 @@ import com.example.analytag.R;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class MylistFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-    private List hashtagData;
+    private MylistViewModel mylistViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        mylistViewModel =
+                ViewModelProviders.of(this).get(MylistViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_mylist, container, false);
+        final TextView textView = root.findViewById(R.id.text_mylist);
+        mylistViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -36,23 +35,14 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    public List searchHashtag(String hashtag){
-
-        return  null;
-    }
-
-    public List analyzerHashtag(List hashtagData){
+    public List hashtagHistory(String hashtag){
 
         return null;
     }
 
-    public List relatedHashtag(String hashtag){
+    public List hashtagFavorite(String hashtag){
 
         return null;
     }
 
-
-    public List getHashtagData() {
-        return hashtagData;
-    }
 }

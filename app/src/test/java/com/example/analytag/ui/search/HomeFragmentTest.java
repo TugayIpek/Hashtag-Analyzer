@@ -1,15 +1,13 @@
-package com.example.analytag.ui.home;
-
-import com.example.analytag.ui.dashboard.DashboardFragment;
+package com.example.analytag.ui.search;
 
 import org.junit.Test;
 
 import java.util.List;
 
 
-class HomeFragmentTest {
+class SearchFragmentTest {
 
-    private HomeFragment testObj;
+    private SearchFragment testObj;
 
     @Test
     void searchHashtag() {
