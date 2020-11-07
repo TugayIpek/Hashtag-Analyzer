@@ -1,9 +1,14 @@
 package com.example.analytag.ui.search;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,25 +19,55 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.analytag.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
 
-    private SearchViewModel searchViewModel;
+    View root;
+    SearchView mySearchView;
+    ListView myList;
+    ArrayList<String> list;
+    ArrayAdapter<String> adapter;
+
     private List hashtagData;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        searchViewModel =
-                ViewModelProviders.of(this).get(SearchViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_search, container, false);
-        final TextView textView = root.findViewById(R.id.text_search);
-        searchViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+        root = inflater.inflate(R.layout.fragment_search, container, false);
+
+        mySearchView = (SearchView) root.findViewById(R.id.searchView);
+        myList = (ListView) root.findViewById(R.id.myList);
+
+        list = new ArrayList<String>();
+
+        list.add("#esen");
+        list.add("#esenbogaelektrik");
+        list.add("#dolar");
+        list.add("#euro");
+        list.add("#ipeke");
+        list.add("#bist30");
+        list.add("#naten");
+        list.add("#yılmaz");
+        list.add("#tugay");
+
+        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list);
+        myList.setAdapter(adapter);
+
+        mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
             }
         });
+
         return root;
     }
 
