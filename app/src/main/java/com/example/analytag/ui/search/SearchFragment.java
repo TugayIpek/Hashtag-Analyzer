@@ -24,7 +24,6 @@ import java.util.List;
 
 public class SearchFragment extends Fragment {
 
-    View root;
     SearchView mySearchView;
     ListView myList;
     ArrayList<String> list;
@@ -35,7 +34,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        root = inflater.inflate(R.layout.fragment_search, container, false);
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
 
         mySearchView = (SearchView) root.findViewById(R.id.searchView);
         myList = (ListView) root.findViewById(R.id.myList);

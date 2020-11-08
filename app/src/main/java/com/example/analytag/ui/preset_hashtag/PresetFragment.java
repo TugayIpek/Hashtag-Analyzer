@@ -30,14 +30,9 @@ public class PresetFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         presetViewModel =
                 ViewModelProviders.of(this).get(PresetViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_preset, container, false);
-        final TextView textView = root.findViewById(R.id.text_preset);
-        presetViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 

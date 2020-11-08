@@ -25,13 +25,7 @@ public class MylistFragment extends Fragment {
         mylistViewModel =
                 ViewModelProviders.of(this).get(MylistViewModel.class);
         View root = inflater.inflate(R.layout.fragment_mylist, container, false);
-        final TextView textView = root.findViewById(R.id.text_mylist);
-        mylistViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 
