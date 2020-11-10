@@ -50,6 +50,10 @@ public class SearchFragment extends Fragment {
         list.add("#naten");
         list.add("#yılmaz");
         list.add("#tugay");
+        list.add("#bist30");
+        list.add("#naten");
+        list.add("#yılmaz");
+        list.add("#tugay");
 
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list);
         myList.setAdapter(adapter);
