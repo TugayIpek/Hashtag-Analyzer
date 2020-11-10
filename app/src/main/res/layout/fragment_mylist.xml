@@ -5,7 +5,124 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:orientation="vertical"
     tools:context=".ui.mylist.MylistFragment">
 
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_height="30dp">
+        <!--background(in ımage button) can be src, the differs should be search-->
+    <Button
+        android:id="@+id/addButton1_myList"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+
+        android:background="@drawable/plus_circle_outline"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="add your own hashtaghs"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        >
+        <TextView
+            android:id="@+id/titleFirstId"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+
+
+
+    </LinearLayout>
+
+    <!--
+   <LinearLayout
+       android:id="@+id/overbox"
+       android:orientation="vertical"
+       android:elevation="3dp"
+       android:background="@drawable/overbox"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+      >
+
+   </LinearLayout>
+   -->
+
+
+    <LinearLayout
+        android:id="@+id/myContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/bgkontent"
+        android:elevation="4dp"
+
+        android:orientation="vertical"
+        android:paddingTop="60dp">
+
+        <TextView
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Collection"
+            android:textColor="#343434"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/titleId"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="your title"
+            android:textColor="#343434"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/yourTagId"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#yourtag"
+            android:textColor="#343434"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/primary" />
+
+
+
+    </LinearLayout>
 
 </LinearLayout>
