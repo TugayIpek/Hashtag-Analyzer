@@ -3,4 +3,17 @@
     <string name="title_search">Search</string>
     <string name="title_preset">Preset</string>
     <string name="title_mylist">My List</string>
+    <string name="title_activity_first_category">FirstCategory</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_first">FirstActivity</string>
+    <string name="title_activity_first__category">First_Category</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,9 +1,11 @@
 package com.example.analytag.ui.preset_hashtag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import java.util.List;
 
 public class PresetFragment extends Fragment {
 
+    private Button btn;
     private PresetViewModel presetViewModel;
 
     public List getHashtagCategories() {
@@ -28,17 +31,24 @@ public class PresetFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        presetViewModel =
-                ViewModelProviders.of(this).get(PresetViewModel.class);
 
-        View root = inflater.inflate(R.layout.fragment_preset, container, false);
+        View view = inflater.inflate(R.layout.fragment_preset, container, false);
 
-        return root;
+        btn = view.findViewById(R.id.first_category);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFirstCategory();
+            }
+        });
+
+        return view;
     }
 
-    public List popularHashtag(){
+    public void openFirstCategory(){
+        Intent intent = new Intent(getActivity(), FirstCategory.class);
+        startActivity(intent);
 
-        return null;
     }
 
     public List hastagCategories(List hashtagCategories){

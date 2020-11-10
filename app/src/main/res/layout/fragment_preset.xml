@@ -23,7 +23,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <Button
+                    android:id="@+id/first_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/popular_hashtag"
@@ -38,7 +39,8 @@
                 android:gravity="center"
                 android:layout_height="200dp"
                 android:orientation="horizontal">
-                <ImageView
+                <Button
+                    android:id="@+id/second_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/countries"
@@ -52,7 +54,8 @@
                 android:gravity="center"
                 android:layout_height="200dp"
                 android:orientation="horizontal">
-                <ImageView
+                <Button
+                    android:id="@+id/third_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/stocks"
@@ -66,7 +69,8 @@
                 android:gravity="center"
                 android:layout_height="200dp"
                 android:orientation="horizontal">
-                <ImageView
+                <Button
+                    android:id="@+id/fourth_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/travel"
