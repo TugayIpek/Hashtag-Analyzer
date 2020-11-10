@@ -20,17 +20,16 @@
         <!--background(in ımage button) can be src, the differs should be search-->
     <Button
         android:id="@+id/addButton1_myList"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
 
         android:background="@drawable/plus_circle_outline"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="add your own hashtaghs"
+        android:text="  Add your own hashtags"
         android:textSize="20dp"
-        android:textStyle="bold"
         />
 
     </LinearLayout>
@@ -96,7 +95,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="your title"
+            android:hint="your title"
             android:textColor="#343434"
             android:textSize="20sp"
             android:textStyle="italic" />
@@ -106,7 +105,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="#yourtag"
+            android:hint="#yourtag"
             android:textColor="#343434"
             android:textSize="20sp"
             android:textStyle="italic" />
