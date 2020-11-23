@@ -26,7 +26,7 @@ public class MylistFragment extends Fragment {
 
     Button addButton_myL, saveButton;
     LinearLayout myContent;
-    Animation fromsmall ;
+    Animation fromsmall;
     EditText titleTag, yourTag;
     TextView titleTextView;
     List titleTagList = new ArrayList();
@@ -39,7 +39,7 @@ public class MylistFragment extends Fragment {
         mylistViewModel =
                 ViewModelProviders.of(this).get(MylistViewModel.class);
         View root = inflater.inflate(R.layout.fragment_mylist, container, false);
-        addButton_myL =(Button) root.findViewById(R.id.addButton1_myList);
+        addButton_myL = (Button) root.findViewById(R.id.addButton1_myList);
         saveButton = (Button) root.findViewById(R.id.buttonSave);
         myContent = (LinearLayout) root.findViewById(R.id.myContent);
         fromsmall = AnimationUtils.loadAnimation(getContext(), R.anim.fromsmall);
@@ -49,14 +49,14 @@ public class MylistFragment extends Fragment {
 
         titleTextView = (TextView) root.findViewById(R.id.titleFirstId);
 
-        addButton_myL.setOnClickListener(new View.OnClickListener(){
+        addButton_myL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myContent.setAlpha(1);
                 myContent.startAnimation(fromsmall);
             }
         });
-        saveButton.setOnClickListener(new View.OnClickListener(){
+        saveButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -71,12 +71,12 @@ public class MylistFragment extends Fragment {
         return root;
     }
 
-    public List hashtagHistory(String hashtag){
+    public List hashtagHistory(String hashtag) {
 
         return null;
     }
 
-    public List hashtagFavorite(String hashtag){
+    public List hashtagFavorite(String hashtag) {
 
         return null;
     }
