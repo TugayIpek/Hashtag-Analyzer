@@ -1,4 +1,4 @@
-package com.example.analytag.ui;
+package com.example.analytag.ui.preset_hashtag;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,20 +1,17 @@
 package com.example.analytag.ui.preset_hashtag;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.analytag.ui.CategoryAdapter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.analytag.R;
+import com.example.analytag.ui.Analyze;
 
 import java.util.ArrayList;
 
@@ -30,7 +27,6 @@ public class FirstCategory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_category);
 
-
         hashtagList = getIntent().getExtras().getStringArrayList("hashtagList");
         adapter = new CategoryAdapter(this,hashtagList);
         lv_list = findViewById(R.id.lv_list);
@@ -40,6 +36,17 @@ public class FirstCategory extends AppCompatActivity {
         category = getIntent().getExtras().getString("category");
         tv_category.setText(category);
 
+        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(FirstCategory.this, hashtagList.get(i),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), Analyze.class);
+                intent.putExtra("hashtagList.get(i)",hashtagList.get(i));
+                intent.putExtra("i",i);
+                startActivity(intent);
+            }
+        });
 
     }
+
 }

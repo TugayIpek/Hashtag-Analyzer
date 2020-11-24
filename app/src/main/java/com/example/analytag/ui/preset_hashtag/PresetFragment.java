@@ -64,10 +64,6 @@ public class PresetFragment extends Fragment {
         travel.add("#travelwriter");
 
 
-
-        //adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, popularHashtags);
-
-
         btn = view.findViewById(R.id.first_category);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
