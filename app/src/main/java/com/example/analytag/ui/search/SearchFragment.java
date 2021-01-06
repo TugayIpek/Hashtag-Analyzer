@@ -3,10 +3,13 @@ package com.example.analytag.ui.search;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -18,16 +21,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.analytag.R;
+import com.example.analytag.ui.APIServiceAnalyze;
+import com.example.analytag.ui.Analyze;
+import com.example.analytag.ui.preset_hashtag.FirstCategory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
 
-    SearchView mySearchView;
-    ListView myList;
-    ArrayList<String> list;
-    ArrayAdapter<String> adapter;
+    EditText myEditText;
+    Button analyze_button;
+    String tag;
+    APIServiceAnalyze analyze = new APIServiceAnalyze();
 
     private List hashtagData;
 
@@ -36,42 +42,32 @@ public class SearchFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_search, container, false);
 
-        mySearchView = (SearchView) root.findViewById(R.id.searchView);
-        myList = (ListView) root.findViewById(R.id.myList);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-        list = new ArrayList<String>();
-
-        list.add("#esen");
-        list.add("#esenbogaelektrik");
-        list.add("#dolar");
-        list.add("#euro");
-        list.add("#ipeke");
-        list.add("#bist30");
-        list.add("#naten");
-        list.add("#yılmaz");
-        list.add("#tugay");
-        list.add("#bist30");
-        list.add("#naten");
-        list.add("#yılmaz");
-        list.add("#tugay");
-
-        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, list);
-        myList.setAdapter(adapter);
-
-        mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
-                return false;
-            }
-        });
+        myEditText = (EditText) root.findViewById(R.id.myEditText);
+        analyze_button = (Button) root.findViewById(R.id.analyze_button);
+        click();
 
         return root;
+    }
+
+    private void click(){
+        analyze_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tag = myEditText.getText().toString();
+
+                ArrayList<String> datas = null;
+                datas =analyze.APIAnalyze(tag);
+
+                Intent intent = new Intent(getActivity().getApplicationContext(), Analyze.class);
+                intent.putExtra("tag", tag);
+                intent.putExtra("datas", datas);
+                startActivity(intent);
+
+            }
+        });
     }
 
     public List searchHashtag(String hashtag){

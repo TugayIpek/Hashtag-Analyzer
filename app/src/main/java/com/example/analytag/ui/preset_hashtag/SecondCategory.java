@@ -17,14 +17,13 @@ import com.example.analytag.ui.Analyze;
 
 import java.util.ArrayList;
 
-public class FirstCategory extends AppCompatActivity {
+public class SecondCategory extends AppCompatActivity {
     ListView lv_list;
     TextView tv_category;
     String category;
     ArrayList<String> hashtagList;
     CategoryAdapter adapter;
     APIServiceAnalyze analyze = new APIServiceAnalyze();
-    private ArrayList<String> datas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,7 @@ public class FirstCategory extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_category);
+
         hashtagList = getIntent().getExtras().getStringArrayList("hashtagList");
         adapter = new CategoryAdapter(this,hashtagList);
         lv_list = findViewById(R.id.lv_list);
@@ -42,7 +42,6 @@ public class FirstCategory extends AppCompatActivity {
         category = getIntent().getExtras().getString("category");
         tv_category.setText(category);
         clickList();
-        datas = getIntent().getExtras().getStringArrayList("datas");
     }
 
     private void clickList(){
@@ -51,17 +50,13 @@ public class FirstCategory extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String tag = hashtagList.get(i);
-                ArrayList<String> temp = new ArrayList<>();
-                temp.add(datas.get((i)*6));
-                temp.add(datas.get((i)*6+1));
-                temp.add(datas.get((i)*6+2));
-                temp.add(datas.get((i)*6+3));
-                temp.add(datas.get((i)*6+4));
-                temp.add(datas.get((i)*6+5));
+
+                ArrayList<String> datas = null;
+                datas =analyze.APIAnalyze(tag);
 
                 Intent intent = new Intent(getApplicationContext(), Analyze.class);
                 intent.putExtra("tag",tag);
-                intent.putExtra("datas", temp);
+                intent.putExtra("datas", datas);
                 startActivity(intent);
 
             }

@@ -40,7 +40,7 @@ public class CategoryAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = LayoutInflater.from(context).inflate(R.layout.tag_view, viewGroup, false);
         TextView tv_text = view.findViewById(R.id.tv_text);
-        tv_text.setText(list.get(i));
+        tv_text.setText("#"+list.get(i));
         return view;
     }
 }
