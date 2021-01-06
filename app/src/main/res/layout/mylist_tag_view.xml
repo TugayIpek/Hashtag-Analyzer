@@ -6,7 +6,7 @@
     <TextView
         android:id="@+id/myListTagId"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/rectangle"

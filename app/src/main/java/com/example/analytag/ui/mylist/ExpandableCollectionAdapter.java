@@ -83,7 +83,7 @@ public class ExpandableCollectionAdapter extends BaseExpandableListAdapter {
 		}
 		TextView expandedListTextView = (TextView) view
 				.findViewById(R.id.myListTagId);
-		expandedListTextView.setText(tag);
+		expandedListTextView.setText("#"+tag);
 		return view;
 	}
 
