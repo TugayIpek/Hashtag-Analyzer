@@ -42,8 +42,9 @@ public class TagCollection extends RealmObject {
 	}
 
 	public boolean addTag(String tag) {
-		if(tag.charAt(0) == '#')
-			tag = tag.substring(1);
+		if(!tag.isEmpty())
+			if(tag.charAt(0) == '#')
+				tag = tag.substring(1);
 
 		if (tags.contains(tag) || tag.isEmpty())
 			return false;
