@@ -31,6 +31,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
 import static io.realm.Realm.getApplicationContext;
 
@@ -43,11 +44,15 @@ public class MylistFragment extends Fragment {
 
 	EditText titleTag, yourTag, yourTag2, yourTag3;
 
-	TextView titleTextView, tagTextView, tagTextView2, tagTextView3, tagFirst, tagSecond, tagThird;
-
 	Realm realm;
 	ExpandableListView collectionList;
-	ArrayList<String> yourTagList = new ArrayList();
+	ArrayList<String> yourTagList;
+
+	Button saveEditButton;
+	LinearLayout editContent;
+
+	EditText editTitle, editTag1, editTag2, editTag3;
+
 
 	public MylistFragment() {
 		this.yourTagList = new ArrayList<>();
@@ -73,7 +78,7 @@ public class MylistFragment extends Fragment {
 		myContent = (LinearLayout) root.findViewById(R.id.myContent);
 
 		fromsmall = AnimationUtils.loadAnimation(getContext(), R.anim.fromsmall);
-		myContent.setAlpha(0);
+		myContent.setVisibility(View.GONE);
 
 		titleTag = (EditText) root.findViewById(R.id.titleId);
 		yourTag = (EditText) root.findViewById(R.id.yourTagId);
@@ -81,6 +86,15 @@ public class MylistFragment extends Fragment {
 		yourTag3 = (EditText) root.findViewById(R.id.yourTagId3);
 
 		collectionList = (ExpandableListView) root.findViewById(R.id.expandableListView);
+
+		saveEditButton = (Button) root.findViewById(R.id.buttonEditSave);
+
+		editContent = root.findViewById(R.id.editContent);
+		editTitle = (EditText) root.findViewById(R.id.editTitle);
+		editTag1 = (EditText) root.findViewById(R.id.editTag1);
+		editTag2 = (EditText) root.findViewById(R.id.editTag2);
+		editTag3 = (EditText) root.findViewById(R.id.editTag3);
+
 
 		/* Clear all data from realm
 		RealmResults<TagCollection> collections = realm.where(TagCollection.class).findAll();
@@ -94,14 +108,20 @@ public class MylistFragment extends Fragment {
 		addButton_myL.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				myContent.setAlpha(1);
+				//clear prev text
+				titleTag.getText().clear();
+				yourTag.getText().clear();
+				yourTag2.getText().clear();
+				yourTag3.getText().clear();
+				//pop-up pops
+				editContent.setVisibility(View.GONE);
+				myContent.setVisibility(View.VISIBLE);
 				myContent.startAnimation(fromsmall);
 			}
 		});
 
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				yourTagList.add(yourTag.getText().toString());
@@ -112,8 +132,40 @@ public class MylistFragment extends Fragment {
 
 				yourTagList.clear();
 
-				myContent.setAlpha(0);
+				myContent.setVisibility(View.GONE);
 
+				showCollections();
+			}
+		});
+
+		saveEditButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i("save", "true");
+
+				// get new data
+				String title = editTitle.getText().toString();
+				ArrayList<String> tagList = new ArrayList<>();
+				tagList.add(editTag1.getText().toString());
+				tagList.add(editTag2.getText().toString());
+				tagList.add(editTag3.getText().toString());
+
+				// edit realm
+				RealmResults<TagCollection> query = realm.where(TagCollection.class)
+						.equalTo("title", title).findAll();
+
+				realm.beginTransaction();
+				if(query.size() != 0) {
+					query.get(0).setTitle(title);
+					query.get(0).removeTags();
+					for (String tag : tagList)
+						query.get(0).addTag(tag);
+				}
+				realm.commitTransaction();
+
+				// finish work
+				tagList.clear();
+				editContent.setVisibility(View.GONE);
 				showCollections();
 			}
 		});
@@ -123,15 +175,21 @@ public class MylistFragment extends Fragment {
 
 
 	public void addToCollections(final String title, final ArrayList<String> tags) {
-		realm.beginTransaction();
-		TagCollection newCollection = realm.createObject(TagCollection.class);
+		RealmResults<TagCollection> query = realm.where(TagCollection.class)
+				.equalTo("title", title).findAll();
 
-		newCollection.setTitle(title);
-		for(String newTag : tags)
-			newCollection.addTag(newTag);
+		if(query.size() == 0) {
+			realm.beginTransaction();
+			TagCollection newCollection = realm.createObject(TagCollection.class);
+			newCollection.setTitle(title);
+			for(String newTag : tags)
+				newCollection.addTag(newTag);
+			realm.commitTransaction();
 
-		realm.commitTransaction();
-		Toast.makeText(getApplicationContext(), "Saved Successfully", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "Saved Successfully", Toast.LENGTH_LONG).show();
+		}
+		else
+			Toast.makeText(getApplicationContext(), "\"" + title + "\" already exists", Toast.LENGTH_LONG).show();
 	}
 
 
@@ -142,7 +200,7 @@ public class MylistFragment extends Fragment {
 			Log.i("col", col.toString());
 
 		if(collections.size() > 0){
-			ExpandableCollectionAdapter adapter = new ExpandableCollectionAdapter(collections, getApplicationContext());
+			ExpandableCollectionAdapter adapter = new ExpandableCollectionAdapter(collections, realm, getApplicationContext());
 			collectionList.setAdapter(adapter);
 		}
 	}

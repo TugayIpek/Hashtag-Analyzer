@@ -2,23 +2,37 @@ package com.example.analytag.ui.mylist;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.analytag.R;
 import com.example.analytag.TagCollection;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ExpandableCollectionAdapter extends BaseExpandableListAdapter {
 	List<TagCollection> list;
+	Realm realm;
 	Context context;
+	View root;
 
-	public ExpandableCollectionAdapter(List<TagCollection> list, Context context) {
+	public ExpandableCollectionAdapter(List<TagCollection> list, Realm realm, Context context) {
 		this.list = list;
+		this.realm = realm;
 		this.context = context;
 	}
 
@@ -65,10 +79,39 @@ public class ExpandableCollectionAdapter extends BaseExpandableListAdapter {
 					getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = layoutInflater.inflate(R.layout.collection_view, null);
 		}
+		//show collection
 		TextView titleTextView = (TextView) view
 				.findViewById(R.id.titleFirstId);
 		titleTextView.setTypeface(null, Typeface.BOLD);
 		titleTextView.setText(title);
+
+		//edit collection
+		Button editButton = (Button) view.findViewById(R.id.editButton_myList);
+		root = (View) viewGroup.getParent();
+		final int j = i;
+
+		editButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				RealmResults<TagCollection> query = realm.where(TagCollection.class)
+						.equalTo("title", (String) getGroup(j)).findAll();
+				TagCollection col = query.get(0);
+
+				((EditText) root.findViewById(R.id.editTitle)).setText(col.getTitle());
+				((EditText) root.findViewById(R.id.editTag1)).setText(col.getTag(0));
+				((EditText) root.findViewById(R.id.editTag2)).setText(col.getTag(1));
+				((EditText) root.findViewById(R.id.editTag3)).setText(col.getTag(2));
+
+				LinearLayout myContent = (LinearLayout) root.findViewById(R.id.myContent);
+				myContent.setVisibility(View.GONE);
+				LinearLayout editContent = (LinearLayout) root.findViewById(R.id.editContent);
+				editContent.setVisibility(View.VISIBLE);
+
+				Animation fromsmall = AnimationUtils.loadAnimation(context, R.anim.fromsmall);
+				editContent.startAnimation(fromsmall);
+			}
+		});
+
 		return view;
 	}
 

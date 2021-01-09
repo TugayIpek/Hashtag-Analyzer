@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
 
 @RealmClass
 public class TagCollection extends RealmObject {
-	String title;
-	RealmList<String> tags;
+	private String title;
+	private RealmList<String> tags;
 
 	public TagCollection() {}
 
@@ -41,6 +42,9 @@ public class TagCollection extends RealmObject {
 	}
 
 	public boolean addTag(String tag) {
+		if(tag.charAt(0) == '#')
+			tag = tag.substring(1);
+
 		if (tags.contains(tag) || tag.isEmpty())
 			return false;
 		else
@@ -50,6 +54,10 @@ public class TagCollection extends RealmObject {
 
 	public boolean removeTag(String tag) {
 		return tags.remove(tag);
+	}
+
+	public void removeTags() {
+		tags.clear();
 	}
 
 	public RealmList<String> getTags() {
