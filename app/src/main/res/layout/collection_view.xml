@@ -16,17 +16,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-
             android:textColor="#ffffff"
             android:textSize="30sp" />
 
         <Button
             android:id="@+id/editButton_myList"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="30dp"
             android:focusable="false"
-            android:background="@drawable/edit" />
+            android:background="@drawable/create" />
+
+        <Button
+            android:id="@+id/removeButton_myList"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:focusable="false"
+            android:background="@drawable/clear" />
     </LinearLayout>
 
     <!--tag list view

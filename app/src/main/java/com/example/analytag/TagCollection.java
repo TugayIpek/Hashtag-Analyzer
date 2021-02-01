@@ -42,14 +42,16 @@ public class TagCollection extends RealmObject {
 	}
 
 	public boolean addTag(String tag) {
-		if(tag.charAt(0) == '#')
-			tag = tag.substring(1);
+		if(!tag.isEmpty()) {
+			if (tag.charAt(0) == '#')
+				tag = tag.substring(1);
 
-		if (tags.contains(tag) || tag.isEmpty())
-			return false;
-		else
-			tags.add(tag);
-		return true;
+			if (tags.contains(tag))
+				return false;
+			else
+				return tags.add(tag);
+		}
+		return false;
 	}
 
 	public boolean removeTag(String tag) {

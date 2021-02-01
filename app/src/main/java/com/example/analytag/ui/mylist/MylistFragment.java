@@ -37,7 +37,7 @@ import static io.realm.Realm.getApplicationContext;
 
 public class MylistFragment extends Fragment {
 
-	Button addButton_myL, saveButton, editButton;
+	Button addButton_myL, saveButton;
 	LinearLayout myContent;
 
 	Animation fromsmall ;
@@ -48,8 +48,8 @@ public class MylistFragment extends Fragment {
 	ExpandableListView collectionList;
 	ArrayList<String> yourTagList;
 
-	Button saveEditButton;
-	LinearLayout editContent;
+	Button saveEditButton, removeYesButton, removeNoButton;
+	LinearLayout editContent, removeContent;
 
 	EditText editTitle, editTag1, editTag2, editTag3;
 
@@ -73,7 +73,7 @@ public class MylistFragment extends Fragment {
 
 		addButton_myL = (Button) root.findViewById(R.id.addButton1_myList);
 		saveButton = (Button) root.findViewById(R.id.buttonSave);
-		editButton = (Button) root.findViewById(R.id.editButton_myList);
+
 
 		myContent = (LinearLayout) root.findViewById(R.id.myContent);
 
@@ -89,11 +89,16 @@ public class MylistFragment extends Fragment {
 
 		saveEditButton = (Button) root.findViewById(R.id.buttonEditSave);
 
+		removeYesButton = (Button) root.findViewById(R.id.removeYesButton);
+		removeNoButton = (Button) root.findViewById(R.id.removeNoButton);
+
 		editContent = root.findViewById(R.id.editContent);
 		editTitle = (EditText) root.findViewById(R.id.editTitle);
 		editTag1 = (EditText) root.findViewById(R.id.editTag1);
 		editTag2 = (EditText) root.findViewById(R.id.editTag2);
 		editTag3 = (EditText) root.findViewById(R.id.editTag3);
+
+		removeContent = (LinearLayout) root.findViewById(R.id.removeContent);
 
 
 		/* Clear all data from realm
@@ -167,6 +172,32 @@ public class MylistFragment extends Fragment {
 				tagList.clear();
 				editContent.setVisibility(View.GONE);
 				showCollections();
+			}
+		});
+
+		removeYesButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// get new data
+				String title = editTitle.getText().toString();
+
+				// edit realm
+				realm.beginTransaction();
+				RealmResults<TagCollection> query = realm.where(TagCollection.class)
+						.equalTo("title", title).findAll();
+				query.get(0).deleteFromRealm();
+				realm.commitTransaction();
+
+				// finish work
+				removeContent.setVisibility(View.GONE);
+				showCollections();
+			}
+		});
+
+		removeNoButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				removeContent.setVisibility(View.GONE);
 			}
 		});
 

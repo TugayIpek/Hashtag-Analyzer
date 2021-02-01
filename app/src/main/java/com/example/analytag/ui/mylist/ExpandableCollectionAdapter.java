@@ -1,8 +1,10 @@
 package com.example.analytag.ui.mylist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.nfc.Tag;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +14,16 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.analytag.MainActivity;
 import com.example.analytag.R;
 import com.example.analytag.TagCollection;
+import com.example.analytag.ui.APIServiceAnalyze;
+import com.example.analytag.ui.Analyze;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +31,23 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
+import static io.realm.Realm.getApplicationContext;
+
 public class ExpandableCollectionAdapter extends BaseExpandableListAdapter {
 	List<TagCollection> list;
 	Realm realm;
 	Context context;
 	View root;
 
+	APIServiceAnalyze analyze = new APIServiceAnalyze();
+
 	public ExpandableCollectionAdapter(List<TagCollection> list, Realm realm, Context context) {
 		this.list = list;
 		this.realm = realm;
 		this.context = context;
+
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 	}
 
 	@Override
@@ -85,10 +99,11 @@ public class ExpandableCollectionAdapter extends BaseExpandableListAdapter {
 		titleTextView.setTypeface(null, Typeface.BOLD);
 		titleTextView.setText(title);
 
+		final int j = i;
+
 		//edit collection
 		Button editButton = (Button) view.findViewById(R.id.editButton_myList);
 		root = (View) viewGroup.getParent();
-		final int j = i;
 
 		editButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -104,6 +119,8 @@ public class ExpandableCollectionAdapter extends BaseExpandableListAdapter {
 
 				LinearLayout myContent = (LinearLayout) root.findViewById(R.id.myContent);
 				myContent.setVisibility(View.GONE);
+				LinearLayout popup = (LinearLayout) root.findViewById(R.id.removeContent);
+				popup.setVisibility(View.GONE);
 				LinearLayout editContent = (LinearLayout) root.findViewById(R.id.editContent);
 				editContent.setVisibility(View.VISIBLE);
 
@@ -112,22 +129,83 @@ public class ExpandableCollectionAdapter extends BaseExpandableListAdapter {
 			}
 		});
 
+		//remove collections
+		Button removeButton = (Button) view.findViewById(R.id.removeButton_myList);
+		root = (View) viewGroup.getParent();
+
+		removeButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((EditText) root.findViewById(R.id.editTitle)).setText((String) getGroup(j));
+
+				LinearLayout myContent = (LinearLayout) root.findViewById(R.id.myContent);
+				myContent.setVisibility(View.GONE);
+				LinearLayout editContent = (LinearLayout) root.findViewById(R.id.editContent);
+				editContent.setVisibility(View.GONE);
+				LinearLayout popup = (LinearLayout) root.findViewById(R.id.removeContent);
+				popup.setVisibility(View.VISIBLE);
+
+				Animation fromsmall = AnimationUtils.loadAnimation(context, R.anim.fromsmall);
+				popup.startAnimation(fromsmall);
+			}
+		});
+
 		return view;
 	}
 
 	@Override
 	public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-		String tag = (String) getChild(i,i1);
+		final String tag = (String) getChild(i,i1);
 
 		if (view == null) {
 			LayoutInflater layoutInflater = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = layoutInflater.inflate(R.layout.mylist_tag_view, null);
 		}
+		//show tag
 		TextView expandedListTextView = (TextView) view
 				.findViewById(R.id.myListTagId);
 		expandedListTextView.setText("#"+tag);
+
+		//analyze tag
+
+		TextView tagClick = (TextView) view.findViewById(R.id.myListTagId);
+
+		tagClick.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "Tag Click " + tag, Toast.LENGTH_LONG).show();
+/*
+				ArrayList<String> datas = null;
+				datas =analyze.APIAnalyze(tag);
+
+				Intent intent = new Intent(context, Analyze.class);
+				intent.putExtra("tag", tag);
+				intent.putExtra("datas", datas);
+				context.startActivity(intent);
+				
+ */
+			}
+		});
+
+
 		return view;
+	}
+
+
+	public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+		final String tag = (String) getChild(groupPosition,childPosition);
+		Toast.makeText(getApplicationContext(), "Tag Click " + tag, Toast.LENGTH_LONG).show();
+
+		ArrayList<String> datas = null;
+		datas =analyze.APIAnalyze(tag);
+
+		Intent intent = new Intent(context, Analyze.class);
+		intent.putExtra("tag", tag);
+		intent.putExtra("datas", datas);
+		context.startActivity(intent);
+
+		return false;
 	}
 
 	@Override
